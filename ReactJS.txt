@@ -1,0 +1,245 @@
+================================================================================================
+Git Basic Commands
+	git init
+	git add .
+	git commit -m "my commit"
+	git remote add origin <remote repository URL>
+	
+	git branch -M main
+	git push -u origin main
+		OR
+	git push origin <remote branch name>
+	
+	 main is now named master 
+	 If you have a local clone, you can update it by running:
+		git branch -m main master
+		git fetch origin
+		git branch -u origin/master master
+	
+	Renaming local and remote
+	
+		# Rename the local branch to the new name
+		git branch -m <old_name> <new_name>
+
+		# Delete the old branch on remote - where <remote> is, for example, origin
+		git push <remote> --delete <old_name>
+
+		# Or shorter way to delete remote branch [:]
+		git push <remote> :<old_name>
+
+		# Prevent git from using the old name when pushing in the next step.
+		# Otherwise, git will use the old upstream name instead of <new_name>.
+		git branch --unset-upstream <old_name>
+
+		# Push the new branch to remote
+		git push <remote> <new_name>
+
+		# Reset the upstream branch for the new_name local branch
+		git push <remote> -u <new_name>
+================================================================================================
+ReactJS
+================================================================================================
+Overview:
+	React's design concepts
+	JSX and event handlers, data and APIs
+	React hooks
+	Communicating between components
+	Creating a local development environment for ReactJS
+================================================================================================
+The Basics:
+	
+	React Commonly Faced Problems
+		https://jscomplete.com/learn/react-beyond-basics/react-cfp
+	
+	Why React?
+		https://jscomplete.com/learn/react-beyond-basics/why-react
+		A JavaScript library for building user interfaces
+		React is "declarative"
+		HTML
+			Declarative for static content
+		React
+			Declarative for dynamic data
+		
+		Framworks
+			Limited flexibility
+				- Do things a certain way
+				- Hard to deviate
+			Large and full of features
+				- Hard to customize
+				- Use the whole thing
+				
+		Why React is so popular?
+			The "Virtual" browser (vs. DOM API)
+			Just JavaScript
+			React Native (for the win)
+			Battle-tested
+			Declarative language (model UI and state)
+		
+	React's Basic Concepts
+		1. Components
+			- Like functions
+			- Input: props, state | Output: UI
+			- Reusable and composable
+			- <Component/>
+			- Can manage a private state
+		2. Reactive updates
+			- React will react
+			- Take updates to the browser
+		3. Virial view in memory
+			- Generate HTML using JavaScript
+			- No HTML template language
+			- Tree recognition
+	
+	React Components
+		Function Component (Uses Props)
+			const MyComponent = (props) => {
+				return (
+					<domElementOrComponent .../>
+				);
+			}
+			Note: props(immutable) values are fixed.
+		Class Component (Uses State)
+			class MyComponent extends React.Component {
+				render() {
+					return (
+						<domElementOrComponent .../>
+					);
+				}
+			}
+			Note: state value can be changed
+			
+	First React Component
+		To Create the ReactJS app
+			npx create-react-app my-app
+			cd my-app
+			npm start
+		https://jscomplete.com/playground
+		https://jscomplete.com/playground/rgs1.1
+		
+		function Button () {
+			return <button>Test</button>;
+		}
+		export default Button;
+		
+		
+	First React Hook
+		
+		useState is called Hook 
+		useState() results:
+			a. state object (getter)
+			b. updater function (setter)
+			
+			[a, b] = useState()
+			
+		import React, {useState} from 'react';
+
+		function Button () {
+			// [a, b] = useState();
+			// [counter, setCounter] = useState();
+			
+			const [counter, setCounter] = useState(0);
+			
+			return (
+				<button onClick={() => setCounter(counter + 1)}>
+					{counter}
+				</button>
+			) ;
+		}
+		export default Button;
+		
+	One-Way Data Flow
+	
+		App.js
+			function App() {
+			  const [counter, setCounter] = useState(50);
+			  const incrementCounter = () => setCounter(counter+1);
+			  return (
+				<div className="App">
+				  <Hello/>
+				  <Button onClickFunction = {incrementCounter}/>
+				  <Display message={counter}/>
+				</div>
+			  );
+			}
+		
+		Button.js
+			function Button (props) {
+				return (
+					<button onClick={props.onClickFunction}>
+						+1
+					</button>
+				) ;
+			}
+		Display.js
+			function Display (props) {    
+				return (
+				   <div>{props.message}</div>
+				) ;
+			}
+	
+	Components Reusability
+		Button Component
+			function Button (props) {
+				const handleClick = () => props.onClickFunction(props.increment);
+				return (
+					<button onClick={handleClick}>
+						+{props.increment}
+					</button>
+				) ;
+			}
+		
+		App Component
+			function App() {
+			  const [counter, setCounter] = useState(0);
+			  const incrementCounter = (incrementValue) => setCounter(counter+incrementValue);
+			  return (
+				<div className="App">
+				  <Hello/>
+				  <Button onClickFunction = {incrementCounter} increment = {1}/>
+				  <Button onClickFunction = {incrementCounter} increment = {5}/>
+				  <Button onClickFunction = {incrementCounter} increment = {10}/>
+				  <Button onClickFunction = {incrementCounter} increment = {20}/>
+				  <Display message={counter}/>
+				</div>
+			  );
+			}
+	
+	Tree Reconciliation in Action
+		https://jscomplete.com/playground/rgs1.7
+		
+		ReconciliationUsingHTML
+			function ReconciliationUsingHTML () {
+				return (
+					<div>
+						<div>Hello HTML</div>
+						<input/>
+						<pre>{(new Date).toLocaleTimeString()}</pre>
+					</div>
+				);
+			}
+		
+		ReconciliationUsingReact
+			function ReconciliationUsingReact () {
+				return (
+					React.createElement('div', null, 'Hello React ',
+					React.createElement('input', null),
+					React.createElement('pre', null, (new Date().toLocaleTimeString())),
+					)
+				);
+			}
+		
+		User both Reconciliation in setInterval to render the Time.
+================================================================================================================
+Modern JavaScript Crash Course
+
+================================================================================================================
+
+The Github Cards App
+	https://jscomplete.com/playground/rgs2.1
+	https://jscomplete.com/playground/rgs2.2
+
+================================================================================================================
+
+The Star Match Game
+
+	https://jscomplete.com/p/star-match/embed?preview=1
