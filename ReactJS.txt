@@ -249,6 +249,7 @@ The Star Match Game
 		https://jscomplete.com/playground/rgs3.3
 		...
 		https://jscomplete.com/playground/rgs3.5
+		https://jscomplete.com/playground/rgs3.7
 	
 	Notes:
 		Be aware of top level of JavaScript Objects and dont override them.
