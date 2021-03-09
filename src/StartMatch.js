@@ -24,6 +24,30 @@ const StarMatch = () => {
         return 'available';
     };
 
+    const numberClick = (number, currentStatus) => {
+        // currentStatus => newStatus
+        if (currentStatus === 'used') {
+            return;
+        }
+        // candidateNums
+        const newCandidateNums = 
+            currentStatus === 'available' 
+                ? condidateNums.concat(number)
+                : condidateNums.filter(cn => cn !== number);
+
+        if (utils.sum(newCandidateNums) !== stars) {
+            setCondidateNums(newCandidateNums);
+        } else {
+            const newAvialableNums = availableNums.filter(
+                n => !newCandidateNums.includes(n)
+            );
+            // Re-Draw stars (from what's avialable)
+             setStars(utils.randomSumIn(newAvialableNums));
+            setAvailableNums(newAvialableNums);
+            setCondidateNums([]);
+        }
+    };
+
     return (
         <div className="game">
             <div className="help">
@@ -42,6 +66,7 @@ const StarMatch = () => {
                             key={number}
                             status={numberStatus(number)} 
                             number={number} 
+                            onClick={numberClick}
                         />
                     )}
                 </div>
