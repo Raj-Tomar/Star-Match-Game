@@ -6,6 +6,7 @@ const StarMatch = () => {
     const [gameId, setGameId] = useState(1);
 
     return (
+        // Game Component with Unmounted and Remounted after Win/Loss
         <Game key={gameId} startNewGame={() => setGameId(gameId + 1)}/>
     );
 }

@@ -250,6 +250,8 @@ The Star Match Game
 		...
 		https://jscomplete.com/playground/rgs3.5
 		https://jscomplete.com/playground/rgs3.7
+		https://jscomplete.com/playground/rgs3.8
+		https://jscomplete.com/playground/rgs3.9
 	
 	Notes:
 		Be aware of top level of JavaScript Objects and dont override them.
@@ -268,3 +270,6 @@ The Star Match Game
 	
 	No Ifs:
 		https://jscomplete.com/no-ifs
+		
+	Rule of Hooks:
+		Don't call Hooks inside loop or conditions
