@@ -255,4 +255,8 @@ The Star Match Game
 		How every click of Number button is working?
 			https://jscomplete.com/closures
 		
+		For every behaviour in React, there are two aspect:
+			1. App logic to change state
+			2. UI logic to describe state
+		
 		

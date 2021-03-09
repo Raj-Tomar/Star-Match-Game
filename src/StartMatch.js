@@ -7,6 +7,22 @@ const StarMatch = () => {
     //const stars = utils.random(1, 9);
     // Changing stars to state element
     const [stars, setStars] = useState(utils.random(1, 9));
+    const [availableNums, setAvailableNums] = useState(utils.range(1, 9));
+    const [condidateNums, setCondidateNums] = useState([]);
+
+    
+    const candatesAreWrong = utils.sum(condidateNums) > stars;
+    
+    const numberStatus = (number) => {
+        if (!availableNums.includes(number)) {
+            return 'used';
+        }
+
+        if (condidateNums.includes(number)) {
+            return candatesAreWrong ? 'wrong' : 'candidate';
+        }
+        return 'available';
+    };
 
     return (
         <div className="game">
@@ -22,7 +38,11 @@ const StarMatch = () => {
                 </div>
                 <div className="right">
                     {utils.range(1, 9).map(number => 
-                        <PlayNumber key={number} number={number} />
+                        <PlayNumber 
+                            key={number}
+                            status={numberStatus(number)} 
+                            number={number} 
+                        />
                     )}
                 </div>
             </div>
@@ -30,14 +50,6 @@ const StarMatch = () => {
         </div>
     );
 }
-
-// Color Theme
-const colors = {
-    available: 'lightgray',
-    used: 'lightgreen',
-    wrong: 'lightcoral',
-    candidate: 'deepskyblue',
-  };
 
 
 export default StarMatch;
