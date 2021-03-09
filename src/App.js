@@ -1,7 +1,7 @@
 import './App.css';
 
 import React from 'react';
-import StarMatch from './StartMatch';
+import StarMatch from './StarMatch';
 
 
 function App() {
