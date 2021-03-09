@@ -242,4 +242,6 @@ The Github Cards App
 
 The Star Match Game
 
-	https://jscomplete.com/p/star-match/embed?preview=1
+	Links:
+		https://jscomplete.com/p/star-match/embed?preview=1
+		https://jscomplete.com/playground/rgs3.1
