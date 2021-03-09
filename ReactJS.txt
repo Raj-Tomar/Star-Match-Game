@@ -245,3 +245,14 @@ The Star Match Game
 	Links:
 		https://jscomplete.com/p/star-match/embed?preview=1
 		https://jscomplete.com/playground/rgs3.1
+		https://jscomplete.com/playground/rgs3.2
+		https://jscomplete.com/playground/rgs3.3
+	
+	Notes:
+		Be aware of top level of JavaScript Objects and dont override them.
+			e.g: Number
+		
+		How every click of Number button is working?
+			https://jscomplete.com/closures
+		
+		
