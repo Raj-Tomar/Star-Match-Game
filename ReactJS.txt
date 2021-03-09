@@ -261,4 +261,9 @@ The Star Match Game
 			1. App logic to change state
 			2. UI logic to describe state
 		
-		
+	
+	Rerendering Problems:
+		https://jscomplete.com/rgs-hooks
+	
+	No Ifs:
+		https://jscomplete.com/no-ifs
