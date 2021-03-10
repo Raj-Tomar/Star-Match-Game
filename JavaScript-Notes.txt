@@ -1,0 +1,109 @@
+Modern JavaScript Notes
+==========================================================================
+
+Variables and Block Scope
+	{{{}}}
+		These are nested block scopes
+		We can write code here.
+			{{{var v = 11; }}}
+		Block Scope is created using 
+			{
+				// Block Scope
+			}
+			// It Applies on if, for statements
+			if(true) {
+				// Block Scope
+			}
+			for(var i = 0; i<=10; i++) {
+				// Block Scope
+			}
+			// i is accessible outside of this for loop
+			// This is why, 
+			// in modern JavaScript is advised to declare variable using "let" keyword
+			for(let i = 0; i<=10; i++) {
+				// Block Scope
+			}
+			// Now i is not accessible outside of this for loop
+			
+		Block scope also can be Nested
+			{
+				// Block Scope
+				{
+					// Nested Block Scope
+					 
+					// let/const keyword, which behaves in good way
+				}
+			}
+			// We use "const" if value is constant
+			// reference assigned with const can not be changed
+			
+			// scalar values
+			const anwer = 11;
+			const greetings = 'Hello';
+			// These can not be changed
+			
+			// Arrays and Objects
+			const number = [2, 4, 6];
+			const person = {
+				firstName: 'Raj',
+				lastName: 'Tomar',
+			}
+			// variable is pointing to same Array/Object
+			// But Content of Array/Object still can be changed
+			
+		Block Scope is different from Function Scope
+			
+			function sum(a, b){
+				// Function scope
+				var result = a + b;
+			}
+			// result is not accessible outside of function scope
+			sum(2+1);
+			
+	Arrow Functions
+		
+		There are many ways to define a function in JavaScript
+		
+		const X = function() {
+			// "this" here is the caller X
+		};
+		
+		// Without Function keyword
+		const Y = () => {
+			// "this" here is NOT the caller Y
+			
+			// It's the same "this" found in Y's scope
+		};
+		// aero function does not care about who called this
+		// but regular function care about this
+		
+		Regular function give access to their "calling" environment
+		while aero function give access to their "defining" environment
+		
+		The value of "this" keyword inside a regular function depends on the HOW the
+		function was CALLED (the OBJECT that made the call)
+		
+		The value of "this" keyword inside a aero function depends on the WHERE the
+		function was DEFINED (the SCOPE that defined the function)  
+		
+		Examples:
+			
+			// console.log(this);
+			const testerObj = {
+				func1: function() {
+					console.log('func1', this);
+				},
+				
+				func2: () => {
+					console.log('func2 ', this);
+				},
+			}
+			// testerObj.func1();
+			// testerObj.func2();
+			
+			const square1 = (a) => {
+				return a * a;
+			}
+			// consise this
+			const square2 = (a) => a*a;
+			const square3 = a => a*a;
