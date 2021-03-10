@@ -45,6 +45,223 @@ Overview:
 	React hooks
 	Communicating between components
 	Creating a local development environment for ReactJS
+	
+================================================================================================
+
+Setting up a Development Environment
+	
+	Multiple Tools
+		- APIs
+		- Configurations
+		- Releases
+	
+	Multipls Environment
+		- Development
+		- Production 
+	
+	Different Renderers
+		- DOM
+		- SSR
+	
+	Download Node.js
+		- To run npm (Node Package Manager)
+		- Verify
+			npm -v
+			npx -v
+
+	create-react-app 
+		npm i -g create-react-app && create-react-app <app-name>
+		Better way
+		npx create-react-app <app-name>
+		
+		npm run eject
+			Copy all the configuration
+			Creates config directory and script directory
+		NOTE: Create React App 2+ supports TypeScript, Sass, CSS Modules and more without ejecting: https://reactjs.org/blog/2018/10/01/create-react-app-v2.html
+		
+	Installing Environment Dependencies
+		https://jscomplete.com/reactful
+		
+		mkdir <dir-name>
+		cd <dir-name>
+		npm init (asks few questions)
+		npm init -y (for default options)
+		
+		Installing Main Dependencies
+			npm i express (Express is framework to create Node.js Server)
+			This web server is used for Server side rendering
+		
+		The Front end Dependencies React and React-DOM
+			npm i react react-dom
+		
+		Webpack (Module bundler - For Shipping all module in single bundle)
+			npm i webpack webpack-cli
+		
+		Babel 
+			npm i babel-loader @babel/code @babel/node @babel/preset-env @babel/preset-react
+		
+		Installing Development Dependencies
+			npm i -D nodemon (Automatically restart node when we change something)
+			npm i -D eslint babel-eslint eslint-plugin-react (Analyzes the code (Style/formatting) and tell about errors/probles)
+			
+	
+	Configure Your Own Environment
+		
+		create .eslintrc.js file under project folder and use below code:
+			module.exports = {
+			  parser: 'babel-eslint',
+			  env: {
+				browser: true,
+				commonjs: true,
+				es6: true,
+				node: true,
+				jest: true,
+			  },
+			  parserOptions: {
+				ecmaVersion: 2020,
+				ecmaFeatures: {
+				  impliedStrict: true,
+				  jsx: true,
+				},
+				sourceType: 'module',
+			  },
+			  plugins: ['react', 'react-hooks'],
+			  extends: [
+				'eslint:recommended',
+				'plugin:react/recommended',
+				'plugin:react-hooks/recommended',
+			  ],
+			  settings: {
+				react: {
+				  version: 'detect',
+				},
+			  },
+			  rules: {
+				// You can do your customizations here...
+				// For example, if you don't want to use the prop-types package,
+				// you can turn off that recommended rule with: 'react/prop-types': ['off']
+			  },
+			};
+		
+		For Automatically Formatting 
+			Install Prettier in Visual Code Studio
+		
+		Creating an Initial Directory Structure
+			fulljs
+				dist/
+					main.js
+				src/
+					index.js
+					components/
+						App.js
+					server/
+						server.js
+		
+		Configure Webpack and Babel
+			
+			Create babel.config.js file under Project Folder
+				module.exports = {
+				  presets: ['@babel/preset-env', '@babel/preset-react'],
+				};
+			Create webpack.config.js file under Project Folder
+				module.exports = {
+				  module: {
+					rules: [
+					  {
+						test: /\.js$/,
+						exclude: /node_modules/,
+						use: {
+						  loader: 'babel-loader',
+						},
+					  },
+					],
+				  },
+				};
+		
+		Create npm Script for Development	
+			// In package.json
+			scripts: {
+				"test": "jest",
+				"dev:server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
+				"dev:bundler": "webpack -w --mode=development"
+			}
+	
+	Testing Everything with a Sample React Application
+		
+		src/components/App.js
+			import React, { useState } from 'react';
+
+			export default function App() {
+			  const [count, setCount] = useState(0);
+			  return (
+				<div>
+				  This is a sample stateful and server-side
+				  rendered React application.
+				  <br />
+				  <br />
+				  Here is a button that will track
+				  how many times you click it:
+				  <br />
+				  <br />
+				  <button onClick={() => setCount(count + 1)}>{count}</button>
+				</div>
+			  );
+			}
+		
+		src/index.js
+			import React from 'react';
+			import ReactDOM from 'react-dom';
+
+			import App from './components/App';
+
+			ReactDOM.hydrate(
+			  <App />,
+			  document.getElementById('mountNode'),
+			);
+		
+		src/server/server.js
+			import express from 'express';
+			import React from 'react';
+			import ReactDOMServer from 'react-dom/server';
+			import App from '../components/App';
+
+			const server = express();
+			server.use(express.static('dist'));
+
+			server.get('/', (req, res) => {
+			  const initialMarkup = ReactDOMServer.renderToString(<App />);
+
+			  res.send(`
+				<html>
+				  <head>
+					<title>Sample React App</title>
+				  </head>
+				  <body>
+					<div id="mountNode">${initialMarkup}</div>
+					<script src="/main.js"></script>
+				  </body>
+				</html>
+			  `)
+			});
+
+			server.listen(4242, () => console.log('Server is running...'));
+		
+		That’s it. If you run both npm dev:server and dev:bundler scripts (in 2 separate terminals):
+			$ npm run dev:server
+			$ npm run dev:bundler
+		For Reference
+			https://github.com/jscomplete/rgs-template
+			
+	
+	Reactful
+		npx reactful star-match
+		Copy star-match code to App.js
+	
+	
+	Structuring Component Files
+		Create all the components separately
+		Follow below link:
+			https://github.com/jscomplete/rgs-star-match
 ================================================================================================
 The Basics:
 	
