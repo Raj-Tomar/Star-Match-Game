@@ -59,51 +59,206 @@ Variables and Block Scope
 			}
 			// result is not accessible outside of function scope
 			sum(2+1);
+----------------------------------------------------------------------------------------			
+Arrow Functions
+		
+	There are many ways to define a function in JavaScript
+	
+	const X = function() {
+		// "this" here is the caller X
+	};
+	
+	// Without Function keyword
+	const Y = () => {
+		// "this" here is NOT the caller Y
+		
+		// It's the same "this" found in Y's scope
+	};
+	// aero function does not care about who called this
+	// but regular function care about this
+	
+	Regular function give access to their "calling" environment
+	while aero function give access to their "defining" environment
+	
+	The value of "this" keyword inside a regular function depends on the HOW the
+	function was CALLED (the OBJECT that made the call)
+	
+	The value of "this" keyword inside a aero function depends on the WHERE the
+	function was DEFINED (the SCOPE that defined the function)  
+	
+	Examples:
+		
+		// console.log(this);
+		const testerObj = {
+			func1: function() {
+				console.log('func1', this);
+			},
 			
-	Arrow Functions
+			func2: () => {
+				console.log('func2 ', this);
+			},
+		}
+		// testerObj.func1();
+		// testerObj.func2();
 		
-		There are many ways to define a function in JavaScript
+		const square1 = (a) => {
+			return a * a;
+		}
+		// consise this
+		const square2 = (a) => a*a;
+		const square3 = a => a*a;
+----------------------------------------------------------------------------------------		
+Object Literals
 		
-		const X = function() {
-			// "this" here is the caller X
+	const obj = {
+		key: value
+	}
+	
+	const mystery = 'answer';
+	const inverseOfPI = 1 / Math.PI;
+	const obj = {
+		p1: 10,
+		p2: 20,
+		f1() {},
+		f2: () => {},
+		[mystery] : 42,
+		//inverseOfPI: inverseOfPI,	// inplace writing twice, can be used like below
+		inverseOfPI,
+	}
+	console.log(obj.mystery); // undefined
+	console.log(obj.answer); // 42
+	
+----------------------------------------------------------------------------------------
+Destructuring and Rest/Spread
+		
+	// const PI = Math.PI
+	// const E = Math.E
+	// const SQRT2 = Math.SQRT2;
+	
+	Above 3 lines are equivalent to below single line:
+	const {PI, E, SQRT2} = Math;
+	
+	// Somewhere in React App
+	const {Componenet, Fragement, useState} = require('react');
+	
+	We can use Destructuring syntax within the functions:
+		
+		const circle = {
+			label: 'CircleX',
+			radius: 2,
+		}
+		
+		const circleArea = ({radius}) => (PI * radius * radius).toFixed(2);
+		
+		console.log(circleArea(circle));
+		
+	Destructuring argument can define as default as well:
+		
+		const circleArea = ({radius}, {precision = 2} = {}) => (PI * radius * radius).toFixed(precision);
+		// if precision value is not specified it will be 2
+		
+	Destructuring also works for Arrays:
+	
+		const [first, second,, fourth] = [10, 20, 30, 40];
+		// ,, used for destructuring, fourth will hold 40
+		
+		// const [value, setValue] = useState(initialValue);
+		
+		const [first, ...restOfItems] = [10, 20, 30, 40];
+		// Destructuring only 1 item out of this array
+		// and create new array under the name of restOfItems
+		console.log(first);
+		console.log(restOfItems);
+		
+		This is useful for splitting the array
+		It more powerful for filtering the Object
+		
+		const data = {
+			temp1: '001',
+			temp2: '002',
+			firstName: 'Raj',
+			lastName: 'Tomar',
 		};
 		
-		// Without Function keyword
-		const Y = () => {
-			// "this" here is NOT the caller Y
-			
-			// It's the same "this" found in Y's scope
+		Create new object except temp1 and temp2
+		const {temp1, temp2, ...} = data;
+		console.log(person);
+		
+		const newArray = [...restOfItems];
+		// Copy of restOfItems
+		
+		const newObject = {
+			...person
 		};
-		// aero function does not care about who called this
-		// but regular function care about this
+		// Copy of person object
+----------------------------------------------------------------------------------------
+Template Strings
+	
+	const greetings = "Hello World";
+	const answer = 'Fourty Two';
+	// Single quote or double quote both are equal
+	
+	Another way to define the String is using `` (Back tick character)
+	String are defined using back tick charater are called Template Strings with Dynamic Values
+	These string can be used as template with dynamic values
+	 
+	const html = `<div>${Math.random()}</div>`
+	cosole.log(html);
+	
+	Template String can also have multiple line strings
+	const html = `<div>
+					${Math.random()}
+				</div>
+				`;
+----------------------------------------------------------------------------------------
+Classes
+	Every thing in JavaScript is an Object including function()
+	
+	class Person {
+	  constructor(name) {
+		this.name = name;
+	  }
+	  greet() {
+		console.log(`Hello ${this.name}!`);
+	  }
+	}
+
+	class Student extends Person {
+	  constructor(name, level) {
+		super(name);
+		this.level = level;
+	  }
+	  greet() {
+		console.log(`Hello ${this.name} from ${this.level}`);
+	  }
+	}
+
+	const o1 = new Person("Max");
+	const o2 = new Student("Tina", "1st Grade");
+	const o3 = new Student("Mary", "2nd Grade");
+	o3.greet = () => console.log('I am special!');
+
+	o1.greet();
+	o2.greet();
+	o3.greet();
+----------------------------------------------------------------------------------------	
+Promises and Async/Await
 		
-		Regular function give access to their "calling" environment
-		while aero function give access to their "defining" environment
-		
-		The value of "this" keyword inside a regular function depends on the HOW the
-		function was CALLED (the OBJECT that made the call)
-		
-		The value of "this" keyword inside a aero function depends on the WHERE the
-		function was DEFINED (the SCOPE that defined the function)  
-		
-		Examples:
-			
-			// console.log(this);
-			const testerObj = {
-				func1: function() {
-					console.log('func1', this);
-				},
-				
-				func2: () => {
-					console.log('func2 ', this);
-				},
-			}
-			// testerObj.func1();
-			// testerObj.func2();
-			
-			const square1 = (a) => {
-				return a * a;
-			}
-			// consise this
-			const square2 = (a) => a*a;
-			const square3 = a => a*a;
+	// fethch API return a Promise
+	
+	// const fetchData = () => {
+	//   fetch('https://api.github.com').then(resp => {
+	//     resp.json().then(data => {
+	//       console.log(data);
+	//     });
+	//   });
+	// };
+
+	const fetchData = async () => {
+	  const resp = await fetch('https://api.github.com');
+	  const data = await resp.json();
+	  console.log(data);
+	};
+
+	fetchData();
+----------------------------------------------------------------------------------------
